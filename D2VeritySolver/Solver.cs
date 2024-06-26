@@ -7,8 +7,7 @@ namespace D2VeritySolver;
 public class Solver(Encounter encounter)
 {
     public Encounter Encounter { get; } = encounter;
-
-
+    
     public void ExecuteCommand(string command, bool isUndo = false)
     {
         if (command == string.Empty) return;
@@ -67,11 +66,11 @@ public class Solver(Encounter encounter)
             Encounter.LastDunkedStatue = Encounter.ShapeStatueMap[commandToExecute[3].AsShape()];
             executedCommands.Add(commandToExecute);
 
-            PrintUpdate(commandToExecute);
+            //PrintUpdate(commandToExecute);
         }
 
         Console.WriteLine();
-        Console.WriteLine(string.Join(Environment.NewLine, executedCommands));
+        Console.WriteLine(string.Join(Environment.NewLine, executedCommands.Select(CommandUtils.PrintCommand)));
         Console.WriteLine();
     }
 

@@ -6,11 +6,17 @@ namespace D2VeritySolver.Rooms;
 
 public class Encounter
 {
-    public Statue? LastDunkedStatue { get; set; } = null;
+    public Statue? LastDunkedStatue { get; set; }
+
+    public bool TriumphMode { get; set; }
+
+    public Encounter WithLastDunkedStatue(Statue? statue)
+    {
+        LastDunkedStatue = statue;
+        return this;
+    }
     
-    public bool TriumphMode { get; init; }
-    
-    public Encounter(Callouts callouts)
+    public Encounter WithNewCallouts(Callouts callouts)
     {
         LeftStatue = new Statue()
             .WithInitialSolid(callouts.LeftStatueSolid)
@@ -33,15 +39,16 @@ public class Encounter
         };
 
         TriumphMode = callouts.TriumphMode;
+        return this;
     }
 
     public Dictionary<Shape, Statue> ShapeStatueMap { get; private set; }
-    
-    private Statue LeftStatue { get; }
 
-    private Statue MiddleStatue { get; }
+    private Statue LeftStatue { get; set; }
 
-    private Statue RightStatue { get; }
+    private Statue MiddleStatue { get; set; }
+
+    private Statue RightStatue { get; set; }
 
     public Statue[] Statues =>
     [
@@ -87,8 +94,8 @@ public class Encounter
 
         primedStatues[0].SendPrimedShape(primedStatues[1]);
         primedStatues[1].SendPrimedShape(primedStatues[0]);
-        
-        Debug.Assert(Statues.All(s => s.Solid.IsValid));
+
+        Debug.Assert(Statues.All(s => s.CurrentSolid.IsValid));
     }
 
     public string CurrentState()
@@ -96,28 +103,44 @@ public class Encounter
         var sb = new StringBuilder();
 
         sb.AppendLine($"Left statue:");
-        sb.AppendLine($"    - Solo room statue shape: {LeftStatue.SoloRoom.StatueShape}");
-        sb.AppendLine($"    - Solo room wall shapes: {string.Join(", ", LeftStatue.SoloRoom.WallShapes)}");
-        sb.AppendLine($"    - Solo room shapes received: {string.Join(", ", LeftStatue.SoloRoom.ShapesReceived)}");
-        sb.AppendLine($"    - Passes completed: {LeftStatue.SoloRoom.PassesPerformed}");
-        sb.AppendLine($"    - Solo room solved? - {LeftStatue.SoloRoom.IsSolved}");
-        sb.AppendLine($"    - Solid Shape (outside): {LeftStatue.Solid}");
-        
+        sb.AppendLine($"    Solo room:");
+        sb.AppendLine($"      - Statue shape: {LeftStatue.SoloRoom.StatueShape}");
+        sb.AppendLine($"      - Wall shapes: {string.Join(", ", LeftStatue.SoloRoom.WallShapes)}");
+        sb.AppendLine($"      - Shapes received: {string.Join(", ", LeftStatue.SoloRoom.ShapesReceived)}");
+        sb.AppendLine($"      - Passes completed: {LeftStatue.SoloRoom.PassesPerformed}");
+        sb.AppendLine($"      - Solved: {LeftStatue.SoloRoom.IsSolved.ToString().ToUpper()}");
+        sb.AppendLine();
+        sb.AppendLine($"    Main Room:");
+        sb.AppendLine($"    - Current: {LeftStatue.CurrentSolid}");
+        sb.AppendLine($"    - Target: {LeftStatue.SoloRoom.TargetSolid}");
+        sb.AppendLine($"    - Solved: {LeftStatue.SoloRoom.IsSolved.ToString().ToUpper()}");
+
+
         sb.AppendLine($"Middle statue:");
-        sb.AppendLine($"    - Solo room statue shape: {MiddleStatue.SoloRoom.StatueShape}");
-        sb.AppendLine($"    - Solo room wall shapes: {string.Join(", ", MiddleStatue.SoloRoom.WallShapes)}");
-        sb.AppendLine($"    - Solo room shapes received: {string.Join(", ", MiddleStatue.SoloRoom.ShapesReceived)}");
-        sb.AppendLine($"    - Passes completed: {MiddleStatue.SoloRoom.PassesPerformed}");
-        sb.AppendLine($"    - Solo room solved? - {MiddleStatue.SoloRoom.IsSolved}");
-        sb.AppendLine($"    - Solid Shape (outside): {MiddleStatue.Solid}");
-        
+        sb.AppendLine($"    Solo room:");
+        sb.AppendLine($"      - Statue shape: {MiddleStatue.SoloRoom.StatueShape}");
+        sb.AppendLine($"      - Wall shapes: {string.Join(", ", MiddleStatue.SoloRoom.WallShapes)}");
+        sb.AppendLine($"      - Shapes received: {string.Join(", ", MiddleStatue.SoloRoom.ShapesReceived)}");
+        sb.AppendLine($"      - Passes completed: {MiddleStatue.SoloRoom.PassesPerformed}");
+        sb.AppendLine($"      - Solved: {MiddleStatue.SoloRoom.IsSolved.ToString().ToUpper()}");
+        sb.AppendLine();
+        sb.AppendLine($"    Main Room:");
+        sb.AppendLine($"    - Current: {MiddleStatue.CurrentSolid}");
+        sb.AppendLine($"    - Target: {MiddleStatue.SoloRoom.TargetSolid}");
+        sb.AppendLine($"    - Solved: {MiddleStatue.SoloRoom.IsSolved.ToString().ToUpper()}");
+
         sb.AppendLine($"Right statue:");
-        sb.AppendLine($"    - Solo room statue shape: {RightStatue.SoloRoom.StatueShape}");
-        sb.AppendLine($"    - Solo room wall shapes: {string.Join(", ", RightStatue.SoloRoom.WallShapes)}");
-        sb.AppendLine($"    - Solo room shapes received: {string.Join(", ", RightStatue.SoloRoom.ShapesReceived)}");
-        sb.AppendLine($"    - Passes completed: {RightStatue.SoloRoom.PassesPerformed}");
-        sb.AppendLine($"    - Solo room solved? - {RightStatue.SoloRoom.IsSolved}");
-        sb.AppendLine($"    - Solid Shape (outside): {RightStatue.Solid}");
+        sb.AppendLine($"    Solo room:");
+        sb.AppendLine($"      - Statue shape: {RightStatue.SoloRoom.StatueShape}");
+        sb.AppendLine($"      - Wall shapes: {string.Join(", ", RightStatue.SoloRoom.WallShapes)}");
+        sb.AppendLine($"      - Shapes received: {string.Join(", ", RightStatue.SoloRoom.ShapesReceived)}");
+        sb.AppendLine($"      - Passes completed: {RightStatue.SoloRoom.PassesPerformed}");
+        sb.AppendLine($"      - Solved: {RightStatue.SoloRoom.IsSolved.ToString().ToUpper()}");
+        sb.AppendLine();
+        sb.AppendLine($"    Main Room:");
+        sb.AppendLine($"    - Current: {RightStatue.CurrentSolid}");
+        sb.AppendLine($"    - Target: {RightStatue.SoloRoom.TargetSolid}");
+        sb.AppendLine($"    - Solved: {RightStatue.SoloRoom.IsSolved.ToString().ToUpper()}");
 
         return sb.ToString();
     }
@@ -125,13 +148,13 @@ public class Encounter
     public int CalculateSoloRoomsScore() =>
         Statues.Sum(s => s.SoloRoom.ShadowsCleansed * 300) +
         Statues.Sum(s => s.SoloRoom.IsSolved ? 10000 : 0) +
-        (int)(1/(Statues.Average(s => s.SoloRoom.PassesPerformed - 2)+1)) * 100 +
+        (int)(1 / (Statues.Average(s => s.SoloRoom.PassesPerformed - 2) + 1)) * 100 +
         Statues.Count(s => s.SoloRoom.WallShapes.Count == 2) * 500;
-    
+
     public IEnumerable<string> GenerateAllAvailableSoloRoomCommands()
     {
         var commands = new List<string>();
-        
+
         foreach (SoloRoom soloRoom in Statues.Select(s => s.SoloRoom))
         {
             if (soloRoom.IsSolved && !TriumphMode) continue;

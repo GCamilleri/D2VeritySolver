@@ -5,17 +5,17 @@ namespace D2VeritySolver.Shapes;
 public class Statue
 {
     public SoloRoom SoloRoom { get; private set; } = null!;
-    public Solid Solid { get; set; } = null!;
+    public Solid CurrentSolid { get; set; } = null!;
     public Shape? PrimedShape { get; set; }
-    public bool CanPrimeShape(Shape shape) => !IsPrimed && Solid.Components.Contains(shape);
+    public bool CanPrimeShape(Shape shape) => !IsPrimed && CurrentSolid.Components.Contains(shape);
     public bool IsPrimed => PrimedShape != null;
 
-    public bool IsSolved => !Solid.Components.Contains(SoloRoom.StatueShape) && 
-                            Solid.SolvedSolids.Any(s => s.IsEquivalentTo(Solid));
+    public bool IsSolved => !CurrentSolid.Components.Contains(SoloRoom.StatueShape) && 
+                            Solid.SolvedSolids.Any(s => s.IsEquivalentTo(CurrentSolid));
 
     public Statue WithInitialSolid(Solid solid)
     {
-        Solid = solid;
+        CurrentSolid = solid;
         return this;
     }
 
@@ -33,13 +33,13 @@ public class Statue
 
     public void SendPrimedShape(Statue other)
     {
-        Solid.Components.Remove(PrimedShape!.Value);
+        CurrentSolid.Components.Remove(PrimedShape!.Value);
         other.ReceiveShape(PrimedShape!.Value);
         PrimedShape = null;
     }
 
     public void ReceiveShape(Shape shape)
     {
-        Solid.Components.Add(shape);
+        CurrentSolid.Components.Add(shape);
     }
 }
