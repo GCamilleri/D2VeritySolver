@@ -56,11 +56,6 @@ public class Solver(Encounter encounter)
             Shape target = command[3].AsShape();
 
             Encounter.ShapeStatueMap[room].SoloRoom.SendShape(shape, Encounter.ShapeStatueMap[target].SoloRoom, isUndo: isUndo);
-            
-            if (isUndo)
-            {
-                Encounter.ShapeStatueMap[target].SoloRoom.PassesPerformed--;
-            }
         }
         else
         {

@@ -18,15 +18,15 @@ public class SoloRoom
 
     public int ShadowsCleansed => ShapesReceived.Distinct().Intersect(TargetSolid.Components).Count();
 
-    public int PassesPerformed { get; set; }
-
-    public bool CanSend(Shape shape) => WallShapes.Contains(shape);
+    public int PassesPerformed { get; private set; }
 
     public bool IsSolved => WallShapes.Count == 2 &&
                             ShadowsCleansed == 2 &&
                             !WallShapes.Except(TargetSolid.Components).Any() &&
                             PassesPerformed >= 2;
 
+    private bool CanSend(Shape shape) => WallShapes.Contains(shape);
+    
     public SoloRoom WithWallShapes(List<Shape> wallShapes)
     {
         WallShapes = wallShapes;
@@ -49,7 +49,15 @@ public class SoloRoom
     private void ReceiveShape(Shape shape, bool isUndo = false)
     {
         WallShapes.Add(shape);
-        if (!isUndo) ReceivedShapeStack.Push(shape);
+        switch (isUndo)
+        {
+            case true:
+                PassesPerformed--;
+                break;
+            case false:
+                ReceivedShapeStack.Push(shape);
+                break;
+        }
     }
 
     public string GenerateRandomCommand()
