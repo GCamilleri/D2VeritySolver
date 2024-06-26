@@ -6,39 +6,8 @@ namespace D2VeritySolver;
 
 public class Solver(Encounter encounter)
 {
-    public Encounter Encounter { get; } = encounter;
+    private Encounter Encounter { get; } = encounter;
     
-    public void ExecuteCommand(string command, bool isUndo = false)
-    {
-        if (command == string.Empty) return;
-
-        Debug.Assert(command.Length == 4);
-
-        if (command[0] == 'X')
-        {
-            Shape room = command[1].AsShape();
-            Shape shape = command[2].AsShape();
-            Shape target = command[3].AsShape();
-
-            Encounter.ShapeStatueMap[room].SoloRoom.SendShape(shape, Encounter.ShapeStatueMap[target].SoloRoom, isUndo: isUndo);
-            
-            if (isUndo)
-            {
-                Encounter.ShapeStatueMap[target].SoloRoom.PassesPerformed--;
-            }
-        }
-        else
-        {
-            Shape firstStatue = command[0].AsShape();
-            Shape firstShape = command[1].AsShape();
-            Shape secondStatue = command[2].AsShape();
-            Shape secondShape = command[3].AsShape();
-
-            Encounter.ShapeStatueMap[firstStatue].PrimeShape(firstShape);
-            Encounter.ShapeStatueMap[secondStatue].PrimeShape(secondShape);
-        }
-    }
-
     public void SolveSoloRooms()
     {
         var executedCommands = new List<string>();
@@ -74,6 +43,37 @@ public class Solver(Encounter encounter)
         Console.WriteLine();
     }
 
+    private void ExecuteCommand(string command, bool isUndo = false)
+    {
+        if (command == string.Empty) return;
+
+        Debug.Assert(command.Length == 4);
+
+        if (command[0] == 'X')
+        {
+            Shape room = command[1].AsShape();
+            Shape shape = command[2].AsShape();
+            Shape target = command[3].AsShape();
+
+            Encounter.ShapeStatueMap[room].SoloRoom.SendShape(shape, Encounter.ShapeStatueMap[target].SoloRoom, isUndo: isUndo);
+            
+            if (isUndo)
+            {
+                Encounter.ShapeStatueMap[target].SoloRoom.PassesPerformed--;
+            }
+        }
+        else
+        {
+            Shape firstStatue = command[0].AsShape();
+            Shape firstShape = command[1].AsShape();
+            Shape secondStatue = command[2].AsShape();
+            Shape secondShape = command[3].AsShape();
+
+            Encounter.ShapeStatueMap[firstStatue].PrimeShape(firstShape);
+            Encounter.ShapeStatueMap[secondStatue].PrimeShape(secondShape);
+        }
+    }
+    
     private void PrintUpdate(string command)
     {
         Console.Clear();
