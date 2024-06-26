@@ -16,6 +16,19 @@ public class Encounter
         return this;
     }
     
+    public Encounter WithLastDunkedStatue(string statue)
+    {
+        LastDunkedStatue = statue switch
+        {
+            "L" => LeftStatue,
+            "M" => MiddleStatue,
+            "R" => RightStatue,
+            _ => throw new Exception("Yo that is not L, M, R")
+        };
+
+        return this;
+    }
+    
     public Encounter WithNewCallouts(Callouts callouts)
     {
         LeftStatue = new Statue()
@@ -39,6 +52,8 @@ public class Encounter
         };
 
         TriumphMode = callouts.TriumphMode;
+
+        WithLastDunkedStatue(callouts.LastDunked);
         return this;
     }
 
@@ -109,11 +124,11 @@ public class Encounter
         sb.AppendLine($"      - Shapes received: {string.Join(", ", LeftStatue.SoloRoom.ShapesReceived)}");
         sb.AppendLine($"      - Passes completed: {LeftStatue.SoloRoom.PassesPerformed}");
         sb.AppendLine($"      - Solved: {LeftStatue.SoloRoom.IsSolved.ToString().ToUpper()}");
-        sb.AppendLine();
         sb.AppendLine($"    Main Room:");
         sb.AppendLine($"    - Current: {LeftStatue.CurrentSolid}");
         sb.AppendLine($"    - Target: {LeftStatue.SoloRoom.TargetSolid}");
         sb.AppendLine($"    - Solved: {LeftStatue.SoloRoom.IsSolved.ToString().ToUpper()}");
+        sb.AppendLine();
 
 
         sb.AppendLine($"Middle statue:");
@@ -123,11 +138,11 @@ public class Encounter
         sb.AppendLine($"      - Shapes received: {string.Join(", ", MiddleStatue.SoloRoom.ShapesReceived)}");
         sb.AppendLine($"      - Passes completed: {MiddleStatue.SoloRoom.PassesPerformed}");
         sb.AppendLine($"      - Solved: {MiddleStatue.SoloRoom.IsSolved.ToString().ToUpper()}");
-        sb.AppendLine();
         sb.AppendLine($"    Main Room:");
         sb.AppendLine($"    - Current: {MiddleStatue.CurrentSolid}");
         sb.AppendLine($"    - Target: {MiddleStatue.SoloRoom.TargetSolid}");
         sb.AppendLine($"    - Solved: {MiddleStatue.SoloRoom.IsSolved.ToString().ToUpper()}");
+        sb.AppendLine();
 
         sb.AppendLine($"Right statue:");
         sb.AppendLine($"    Solo room:");
@@ -136,11 +151,11 @@ public class Encounter
         sb.AppendLine($"      - Shapes received: {string.Join(", ", RightStatue.SoloRoom.ShapesReceived)}");
         sb.AppendLine($"      - Passes completed: {RightStatue.SoloRoom.PassesPerformed}");
         sb.AppendLine($"      - Solved: {RightStatue.SoloRoom.IsSolved.ToString().ToUpper()}");
-        sb.AppendLine();
         sb.AppendLine($"    Main Room:");
         sb.AppendLine($"    - Current: {RightStatue.CurrentSolid}");
         sb.AppendLine($"    - Target: {RightStatue.SoloRoom.TargetSolid}");
         sb.AppendLine($"    - Solved: {RightStatue.SoloRoom.IsSolved.ToString().ToUpper()}");
+        sb.AppendLine();
 
         return sb.ToString();
     }

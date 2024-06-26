@@ -18,8 +18,9 @@ public static class EncounterBuilder
             round++;
             Console.WriteLine($"Beginning round {round}. Ready for new callouts.");
 
-            Statue? lastDunkedStatue = encounter.LastDunkedStatue ?? null;
-            encounter.WithNewCallouts(GetCallouts()).WithLastDunkedStatue(lastDunkedStatue);
+            //Statue? lastDunkedStatue = encounter.LastDunkedStatue ?? null;
+            encounter
+                .WithNewCallouts(GetCallouts()); //.WithLastDunkedStatue(lastDunkedStatue);
 
             Console.WriteLine();
             Console.WriteLine(encounter.CurrentState());
@@ -36,6 +37,8 @@ public static class EncounterBuilder
 
         Callouts GetCallouts()
         {
+            string triumphMode = GetInputUntilValid("Triumph mode? Y/N:");
+            
             do
             {
                 string statueCallouts = GetInputUntilValid("Enter the statue shapes from a solo room left-to-right (facing the symbol wall): ");
@@ -47,8 +50,8 @@ public static class EncounterBuilder
                 string triangleRoomWallShapes = GetInputUntilValid("Enter the shapes on the wall in the room the triangle player is in: ");
                 string circleRoomWallShapes = GetInputUntilValid("Enter the shapes on the wall in the room the circle player is in: ");
                 string squareRoomWallShapes = GetInputUntilValid("Enter the shapes on the wall in the room the square player is in: ");
-                string triumphMode = GetInputUntilValid("Triumph mode? Y/N:");
-
+                string lastDunkedStatue = GetInputUntilValid("Enter the position of the last dunked statue (L, M, R): ");
+                
                 try
                 {
                     callouts = new Callouts()
@@ -57,6 +60,7 @@ public static class EncounterBuilder
                         .WithSoloRoomWallShapes(Shape.Triangle, triangleRoomWallShapes)
                         .WithSoloRoomWallShapes(Shape.Circle, circleRoomWallShapes)
                         .WithSoloRoomWallShapes(Shape.Square, squareRoomWallShapes)
+                        .WithLastDunk(lastDunkedStatue)
                         .WithTriumphMode(triumphMode == "Y");
 
                     isValid = true;

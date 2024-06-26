@@ -20,6 +20,8 @@ public class Callouts
     public Solid RightStatueSolid;
 
     public Dictionary<Shape, List<Shape>> RoomWallCallouts = new();
+    
+    public string LastDunked { get; set; }
 
     public bool TriumphMode;
 
@@ -95,6 +97,12 @@ public class Callouts
     public Callouts WithTriumphMode(bool triumphMode)
     {
         TriumphMode = triumphMode;
+        return this;
+    }
+
+    public Callouts WithLastDunk(string lastDunkedStatue)
+    {
+        LastDunked = lastDunkedStatue;
         return this;
     }
 }

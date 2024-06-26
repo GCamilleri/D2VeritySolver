@@ -1,27 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "/Users/gcamilleri/Solutions/D2VeritySolver/D2VeritySolver/D2VeritySolver.csproj": {}
+    "X:\\Projects\\D2VeritySolver\\D2VeritySolver\\D2VeritySolver.csproj": {}
   },
   "projects": {
-    "/Users/gcamilleri/Solutions/D2VeritySolver/D2VeritySolver/D2VeritySolver.csproj": {
+    "X:\\Projects\\D2VeritySolver\\D2VeritySolver\\D2VeritySolver.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/gcamilleri/Solutions/D2VeritySolver/D2VeritySolver/D2VeritySolver.csproj",
+        "projectUniqueName": "X:\\Projects\\D2VeritySolver\\D2VeritySolver\\D2VeritySolver.csproj",
         "projectName": "D2VeritySolver",
-        "projectPath": "/Users/gcamilleri/Solutions/D2VeritySolver/D2VeritySolver/D2VeritySolver.csproj",
-        "packagesPath": "/Users/gcamilleri/.nuget/packages/",
-        "outputPath": "/Users/gcamilleri/Solutions/D2VeritySolver/D2VeritySolver/obj/",
+        "projectPath": "X:\\Projects\\D2VeritySolver\\D2VeritySolver\\D2VeritySolver.csproj",
+        "packagesPath": "C:\\Users\\giann\\.nuget\\packages\\",
+        "outputPath": "X:\\Projects\\D2VeritySolver\\D2VeritySolver\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/gcamilleri/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\giann\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {},
-          "https://gitlab.com/api/v4/projects/28933183/packages/nuget/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
@@ -54,7 +53,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Users\\giann\\.dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
