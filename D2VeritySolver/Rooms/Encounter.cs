@@ -16,17 +16,16 @@ public class Encounter
         return this;
     }
     
-    public Encounter WithLastDunkedStatue(string statue)
+    public void SetLastDunked(string statue)
     {
         LastDunkedStatue = statue switch
         {
             "L" => LeftStatue,
             "M" => MiddleStatue,
             "R" => RightStatue,
+            "X" => null ,
             _ => throw new Exception("Yo that is not L, M, R")
         };
-
-        return this;
     }
     
     public Encounter WithNewCallouts(Callouts callouts)
@@ -53,7 +52,7 @@ public class Encounter
 
         TriumphMode = callouts.TriumphMode;
 
-        WithLastDunkedStatue(callouts.LastDunked);
+        SetLastDunked(callouts.LastDunked);
         return this;
     }
 

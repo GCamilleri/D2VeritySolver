@@ -11,6 +11,8 @@ public static class EncounterBuilder
         Callouts callouts = null!;
 
         var encounter = new Encounter();
+        
+        string triumphMode = GetInputUntilValid("Triumph mode? Y/N:");
 
         var round = 0;
         do
@@ -37,8 +39,6 @@ public static class EncounterBuilder
 
         Callouts GetCallouts()
         {
-            string triumphMode = GetInputUntilValid("Triumph mode? Y/N:");
-            
             do
             {
                 string statueCallouts = GetInputUntilValid("Enter the statue shapes from a solo room left-to-right (facing the symbol wall): ");
@@ -50,7 +50,7 @@ public static class EncounterBuilder
                 string triangleRoomWallShapes = GetInputUntilValid("Enter the shapes on the wall in the room the triangle player is in: ");
                 string circleRoomWallShapes = GetInputUntilValid("Enter the shapes on the wall in the room the circle player is in: ");
                 string squareRoomWallShapes = GetInputUntilValid("Enter the shapes on the wall in the room the square player is in: ");
-                string lastDunkedStatue = GetInputUntilValid("Enter the position of the last dunked statue (L, M, R): ");
+                string lastDunkedStatue = (round == 1) ? "X" : GetInputUntilValid("Enter the position of the last dunked statue (L, M, R): ");
                 
                 try
                 {

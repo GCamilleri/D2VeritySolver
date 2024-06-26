@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("D2VeritySolver")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f8be1906b9212746772259734e8a4707be46d2ad")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+46a65a53940622f3bc724606d43598992807468a")]
 [assembly: System.Reflection.AssemblyProductAttribute("D2VeritySolver")]
 [assembly: System.Reflection.AssemblyTitleAttribute("D2VeritySolver")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
