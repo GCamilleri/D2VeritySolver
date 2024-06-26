@@ -3,7 +3,7 @@ using D2VeritySolver.Shapes;
 
 namespace D2VeritySolver;
 
-public class EncounterBuilder
+public static class EncounterBuilder
 {
     public static void RunEncounter()
     {
@@ -38,7 +38,7 @@ public class EncounterBuilder
         {
             do
             {
-                string statueCallouts = GetInputUntilValid("Enter the statue shapes from a solo room left-to-right: ");
+                string statueCallouts = GetInputUntilValid("Enter the statue shapes from a solo room left-to-right (facing the symbol wall): ");
 
                 string leftStatueSolid = GetInputUntilValid("Enter the components for the solid shape on the left statue (eg: Cone = ct): ");
                 string middleStatueSolid = GetInputUntilValid("Enter the components for the solid shape on the middle statue (eg: Cone = ct): ");
